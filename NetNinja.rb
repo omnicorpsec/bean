@@ -10,7 +10,7 @@ trap('INT', 'SIG_IGN')
 
 #list of commands this section will be huge someday...
 
-CMDS = ['help', 'clear', '&', 'exit'].sort
+CMDS = ['help', 'clear', '!', 'irb', 'beastmode', 'python', 'exit'].sort
 
 completion = 
 	
@@ -20,11 +20,17 @@ completion =
 	puts "Available Commands: \n" + "#{CMDS.join("\t")}"
 		when Readline.line_buffer =~/clear.*/i
 	system 'clear'
-		when Readline.line_buffer =~ /&.*/i
+		when Readline.line_buffer =~ /!.*/i
 	puts ">>>>>>GET READY<<<<<<"
 	STDOUT.flush
 	beanfook = gets.chomp
 	system beanfook
+		when Readline.line_buffer =~ /irb.*/i
+	system 'pry --simple-prompt'
+		when Readline.line_buffer =~ /beastmode.*/i
+	system 'cd /root/fluxion; bash fluxion'
+		when Readline.line_buffer =~ /python.*/i
+	system 'python -v'
 		when Readline.line_buffer =~ /exit.*/i
 	puts "exiting..."
 	exit 0
